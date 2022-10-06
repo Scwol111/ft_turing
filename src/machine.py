@@ -1,4 +1,4 @@
-from src.transitions import *
+from src.transitions import fill_transition
 from src.error import error_exit
 import json
 
@@ -23,6 +23,11 @@ def check_field(state:str, data:dict, types) -> bool:
 
 def check_in_list(state: str, data: dict, listed:list):
     if not data[state] in listed:
+        error_exit(f"{state} not in list")
+    return True
+
+def check_str_in_list(state: str, listed:list):
+    if not state in listed:
         error_exit(f"{state} not in list")
     return True
 
@@ -52,5 +57,7 @@ def fill_machine(filename:str) -> Machine:
     if (check_field("finals", data, list) and check_list_in_list(data["finals"], data["states"])):
         machine.finals = data["finals"]
     if (check_field("transitions", data, dict)):
-        pass #TODO adding transitions
+        for i in data["transitions"]:
+            if (check_str_in_list(i, machine.states)):
+                machine.transitions[i] = [fill_transition(i, j) for j in data["transitions"][i]]
     return machine
