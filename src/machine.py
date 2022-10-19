@@ -1,6 +1,8 @@
+""" File to describe and fill turing machine
+"""
+import json
 from src.transitions import fill_transition
 from src.error import error_exit
-import json
 
 
 class Machine:
@@ -35,29 +37,29 @@ def check_list_in_list(states: list, listed: list) -> bool:
     for i in states:
         if not i in listed:
             error_exit(f"{i} not in states list")
-
+    return True
 
 def fill_machine(filename:str) -> Machine:
     machine = Machine()
     try:
         with open(filename, "r", encoding='utf-8') as file:
             data = json.load(file)
-    except Exception as e:#TODO do something
+    except Exception as e:
         error_exit(f"Error while reading file {filename}. More info below:\n{e.args}")
-    if (check_field("name", data, str)):
+    if check_field("name", data, str):
         machine.name = data["name"]
-    if (check_field("alphabet", data, list)):
+    if check_field("alphabet", data, list):
         machine.alphabet = data["alphabet"]
-    if (check_field("blank", data, str) and check_in_list("blank", data, machine.alphabet)):
+    if check_field("blank", data, str) and check_in_list("blank", data, machine.alphabet):
         machine.blank = data["blank"]
-    if (check_field("states", data, list)):
+    if check_field("states", data, list):
         machine.states = data["states"]
-    if (check_field("initial", data, str) and check_in_list("initial", data, machine.states)):
+    if check_field("initial", data, str) and check_in_list("initial", data, machine.states):
         machine.initial = data["initial"]
-    if (check_field("finals", data, list) and check_list_in_list(data["finals"], data["states"])):
+    if check_field("finals", data, list) and check_list_in_list(data["finals"], data["states"]):
         machine.finals = data["finals"]
-    if (check_field("transitions", data, dict)):
+    if check_field("transitions", data, dict):
         for i in data["transitions"]:
-            if (check_str_in_list(i, machine.states)):
+            if check_str_in_list(i, machine.states):
                 machine.transitions[i] = [fill_transition(i, j) for j in data["transitions"][i]]
     return machine

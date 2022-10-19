@@ -21,12 +21,12 @@ def check_field(state:str, data:dict, types) -> bool:
 def fill_transition(current:str, description: dict) -> Transition:
     out = Transition()
     out.current = current
-    if (check_field("read", description, str)):
+    if check_field("read", description, str):
         out.read = description["read"]
-    if (check_field("to_state", description, str)):
-        out.read = description["to_state"]
-    if (check_field("write", description, str)):
+    if check_field("to_state", description, str):
+        out.to_state = description["to_state"]
+    if check_field("write", description, str):
         out.write = description["write"]
-    if (check_field("action", description, str)):
+    if check_field("action", description, str):
         out.action = create_action(description["action"])
     return out
