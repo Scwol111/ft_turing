@@ -1,0 +1,25 @@
+{
+    "name" : "zero_one",
+    "alphabet": [ "1", ".", "0", "n", "y" ],
+    "blank" : ".",
+    "states" : [ "HALT", "zeros", "ones", "error" ],
+    "initial" : "zeros",
+    "finals" : [ "HALT" ],
+    "transitions" : {
+        "zeros": [
+            {"read": "0", "to_state": "zeros", "write": "0", "action": "RIGHT"},
+            {"read": "1", "to_state": "ones", "write": "1", "action": "RIGHT"},
+            {"read": ".", "to_state": "HALT", "write": "y", "action": "RIGHT"}
+        ],
+        "ones": [
+            {"read":"1", "to_state":"ones", "write":"1", "action":"RIGHT"},
+            {"read":".", "to_state":"HALT", "write":"y", "action":"RIGHT"},
+            {"read":"0", "to_state":"error", "write":"0", "action":"RIGHT"}
+        ],
+        "error": [
+            {"read":".", "to_state":"HALT", "write":"n", "action":"RIGHT"},
+            {"read":"0", "to_state":"error", "write":"0", "action":"RIGHT"},
+            {"read":"1", "to_state":"error", "write":"1", "action":"RIGHT"}
+        ]
+    }
+}

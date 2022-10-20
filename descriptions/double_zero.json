@@ -1,0 +1,18 @@
+{
+    "name": "double zero",
+    "alphabet": [ "0", ".", "n", "y" ],
+    "blank" : ".",
+    "states" : [ "HALT", "zeroone", "zerotwo" ],
+    "initial" : "zeroone",
+    "finals" : [ "HALT" ],
+    "transitions" : {
+        "zeroone": [
+            {"read": "0", "to_state": "zerotwo", "write": "0", "action": "RIGHT"},
+            {"read": ".", "to_state": "HALT", "write": "y", "action": "RIGHT"}
+        ],
+        "zerotwo": [
+            {"read": "0", "to_state": "zeroone", "write": "0", "action": "RIGHT"},
+            {"read": ".", "to_state": "HALT", "write": "n", "action": "RIGHT"}
+        ]
+    }
+}

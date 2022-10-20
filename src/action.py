@@ -44,3 +44,20 @@ def move_pointer(action: Action) -> int:
     elif action == Action.STAY:
         return 0
     error_exit("Unknown action")
+
+def show_action(action: Action) -> str:
+    """Show information about action
+
+    Args:
+        action (Action): action what to do
+
+    Returns:
+        str: String of action
+    """
+    if action == Action.LEFT:
+        return "LEFT"
+    elif action == Action.RIGHT:
+        return "RIGHT"
+    elif action == Action.STAY:
+        return "STAY"
+    error_exit("Unknown action")

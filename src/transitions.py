@@ -1,4 +1,7 @@
-from src.action import Action, create_action
+"""
+File to work with Transitions
+"""
+from src.action import Action, create_action, show_action
 from src.error import error_exit
 
 
@@ -30,3 +33,22 @@ def fill_transition(current:str, description: dict) -> Transition:
     if check_field("action", description, str):
         out.action = create_action(description["action"])
     return out
+
+def show_one_transition_info(state: str, rule: Transition) -> None:
+    """Show information about one Transition
+
+    Args:
+        state (str): state of Transitions
+        rule (Transition): Transition structure
+    """
+    print(f"({state}, {rule.read}) -> ({rule.to_state}, {rule.write}, {show_action(rule.action)})")
+
+def show_transition_info(state: str, rules: list[Transition]) -> None:
+    """Show information about Transitions
+
+    Args:
+        state (str): state of Transitions
+        rules (list[Transition]): list of rules with Transitions
+    """
+    for i in rules:
+        show_one_transition_info(state, i)

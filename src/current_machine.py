@@ -1,6 +1,8 @@
+"""Module to description current state of turing mashine
+"""
 class CurrentMachine:
-    """_summary_
+    """Description of current state of turing machine
     """
     input = str()
     state = str()
-    current = int() #TODO wtf?
+    current = int()

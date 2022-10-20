@@ -1,0 +1,11 @@
+{
+    "name" : "zero_one",
+    "alphabet": [ "1", ".", "0", "n", "y" ],
+    "blank" : ".",
+    "states" : [ "HALT", "zeros", "ones", "error" ],
+    "initial" : "zeros",
+    "finals" : [ "HALT" ],
+    "transitions" : {
+        
+    }
+}

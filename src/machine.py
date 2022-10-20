@@ -1,11 +1,13 @@
 """ File to describe and fill turing machine
 """
 import json
-from src.transitions import fill_transition
+from src.transitions import fill_transition, show_transition_info
 from src.error import error_exit
 
 
 class Machine:
+    """Structure to contain turing machine description
+    """    
     name = str()
     alphabet = list()
     blank = str()
@@ -14,10 +16,19 @@ class Machine:
     finals = list()
     transitions = dict()
 
-def check_field(state:str, data:dict, types) -> bool:
+def check_field(state:str, data:dict, types: type) -> bool:
+    """Function to check contains state in data and check data[state] type
+
+    Args:
+        state (str): state to check
+        data (dict): description of turing machine
+        types (type): _description_
+
+    Returns:
+        bool: _description_
+    """
     try:
-        data[state]
-        if not type(data[state]) is types:
+        if not isinstance(data[state], types):
             error_exit(f"{state} not is {types}")
     except:
         error_exit(f"not founded {state} in machine file")
@@ -44,8 +55,8 @@ def fill_machine(filename:str) -> Machine:
     try:
         with open(filename, "r", encoding='utf-8') as file:
             data = json.load(file)
-    except Exception as e:
-        error_exit(f"Error while reading file {filename}. More info below:\n{e.args}")
+    except Exception as error:
+        error_exit(f"Error while reading file {filename}. More info below:\n{error.args}")
     if check_field("name", data, str):
         machine.name = data["name"]
     if check_field("alphabet", data, list):
@@ -63,3 +74,39 @@ def fill_machine(filename:str) -> Machine:
             if check_str_in_list(i, machine.states):
                 machine.transitions[i] = [fill_transition(i, j) for j in data["transitions"][i]]
     return machine
+
+def show_list(lst: list) -> None:
+    """Show list to output
+
+    Args:
+        lst (list): list to show
+    """
+    print("[", end=' ')
+    size = len(lst)
+    for i in range(size):
+        print(lst[i], end='')
+        if i + 1 != size:
+            print(',', end='')
+        print(' ', end='')
+    print(']')
+
+def show_machine_info(machine: Machine) -> None:
+    """Show summary information about parsed turing machine
+
+    Args:
+        machine (Machine): parsed and filled machine description
+    """
+    print("*" * 100)
+    size = len(machine.name)
+    print("*", " " * (49 - size // 2), machine.name, " " * (49 - size // 2 - size % 2), '*', sep='')
+    print("*" * 100)
+    print("Alphabet:", end='')
+    show_list(machine.alphabet)
+    print("States:", end='')
+    show_list(machine.states)
+    print("Initial:", machine.initial)
+    print("Finals:", end='')
+    show_list(machine.finals)
+    for i in machine.transitions:
+        show_transition_info(i, machine.transitions[i])
+    print("*" * 100)
