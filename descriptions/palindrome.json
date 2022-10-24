@@ -1,0 +1,43 @@
+{
+    "name" : "palindrome",
+    "alphabet": [ ".", "0", "1", "y", "n"],
+    "blank" : ".",
+    "states" : [ "HALT", "init", "checkone", "checkzero", "isone", "iszero", "back", "error"  ],
+    "initial" : "init",
+    "finals" : [ "HALT"],
+    "transitions" : {
+        "init": [
+            {"read":".", "to_state":"HALT", "write":"y", "action":"RIGHT"},
+            {"read":"1", "to_state":"checkone", "write":".","action":"RIGHT"},
+            {"read":"0", "to_state":"checkzero", "write":".", "action":"RIGHT"}
+        ],
+        "checkone": [
+            {"read":"1", "to_state":"checkone", "write":"1","action":"RIGHT"},
+            {"read":"0", "to_state":"checkone", "write":"0", "action":"RIGHT"},
+            {"read":".", "to_state":"isone", "write":".", "action":"LEFT"}
+        ],
+        "checkzero": [
+            {"read":"1", "to_state":"checkzero", "write":"1","action":"RIGHT"},
+            {"read":"0", "to_state":"checkzero", "write":"0", "action":"RIGHT"},
+            {"read":".", "to_state":"iszero", "write":".", "action":"LEFT"}
+        ],
+        "isone": [
+            {"read":"1", "to_state":"back", "write":".", "action":"LEFT"},
+            {"read":"0", "to_state":"error", "write":"0", "action":"RIGHT"},
+            {"read":".", "to_state":"HALT", "write":"y", "action":"RIGHT"}
+        ],
+        "iszero": [
+            {"read":"0", "to_state":"back", "write":".", "action":"LEFT"},
+            {"read":"1", "to_state":"error", "write":"0", "action":"RIGHT"},
+            {"read":".", "to_state":"HALT", "write":"y", "action":"RIGHT"}
+        ],
+        "back": [
+            {"read":"1", "to_state":"back", "write":"1", "action":"LEFT"},
+            {"read":"0", "to_state":"back", "write":"0", "action":"LEFT"},
+            {"read":".", "to_state":"init", "write":".", "action":"RIGHT"}
+        ],
+        "error": [
+            {"read":".", "to_state":"HALT", "write":"n", "action":"RIGHT"}
+        ]
+    }
+}
