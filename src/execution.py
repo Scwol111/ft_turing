@@ -36,7 +36,8 @@ def execute_machine(machine: Machine, tape: str) -> None:
                 show_tape(curent.input, curent.current)
                 show_one_transition_info(curent.state, i)
                 curent.state = i.to_state
-                curent.input = curent.input[:curent.current] + i.write + curent.input[curent.current + 1:]
+                curent.input = f"{curent.input[:curent.current]}{i.write}{curent.input[curent.current + 1:]}"
+                # curent.input = curent.input[:curent.current] + i.write + curent.input[curent.current + 1:]
                 curent.current += move_pointer(i.action)
                 if curent.current < 0:
                     if i.action == Action.LEFT and i.write == machine.blank:

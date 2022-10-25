@@ -6,15 +6,27 @@ from src.error import error_exit
 
 
 class Transition:
+    """Struct to contain transtition of turing machine
+    """
     current = str()
     read = str()
     to_state = str()
     write = str()
     action = Action(3)
 
-def check_field(state:str, data:dict, types) -> bool:
+def check_field(state:str, data:dict, types: type) -> bool:
+    """Function to check state and state type in data dictionary
+
+    Args:
+        state (str): string what need to check in data dictionary
+        data (dict): data dictionary
+        types (type): type of state in data must be equal types
+
+    Returns:
+        bool: True if all fine, or exit with error
+    """
     try:
-        data[state]
+        # data[state] #TODO check needs
         if not type(data[state]) is types:
             error_exit(f"{state} not is {types}")
     except:
@@ -22,6 +34,15 @@ def check_field(state:str, data:dict, types) -> bool:
     return True
 
 def fill_transition(current:str, description: dict) -> Transition:
+    """_summary_
+
+    Args:
+        current (str): _description_
+        description (dict): _description_
+
+    Returns:
+        Transition: _description_
+    """    
     out = Transition()
     out.current = current
     if check_field("read", description, str):
