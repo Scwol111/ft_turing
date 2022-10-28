@@ -1,0 +1,16 @@
+{
+    "name" : "deeper_addition",
+    "alphabet": [ ".", ":", "L", "R", "H" ],
+    "blank" : ".",
+    "states" : [ "HALT", "init" ],
+    "initial" : "",
+    "finals" : [ "HALT" ],
+    "comment": "alphabet:states:initial:transitions:input",
+    "alphabet_comment": "<char as add><char as plus><char as end>:",
+    "states_comment": "<state char>..<state char> (max size = 5): initial:",
+    "transitions_comment": "<state char><char to read><to state char/H=HALT><char to write><L/R>",
+    "example": "1+=:asd:s:s.s.Rs1s1Rs+a1Ra1a1Ra=d.Ld1H.R:11+11=",
+    "transitions" : {
+        
+    }
+}

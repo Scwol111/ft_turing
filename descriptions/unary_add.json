@@ -2,28 +2,21 @@
     "name" : "unary_addition",
     "alphabet": [ "1", ".", "+", "=" ],
     "blank" : ".",
-    "states" : [ "scanright", "erase", "addone", "skip", "HALT" ],
+    "states" : [ "scanright", "addone", "delone", "HALT" ],
     "initial" : "scanright",
     "finals" : [ "HALT" ],
     "transitions" : {
         "scanright": [
-            {"read": ".", "to_state": "scanright", "write": ".", "action": "RIGHT"},
+            {"read": ".", "to_state": "HALT", "write": ".", "action": "RIGHT"},
             {"read": "1", "to_state": "scanright", "write": "1", "action": "RIGHT"},
-            {"read": "+", "to_state": "addone", "write": "+", "action": "RIGHT"},
-            {"read": "=", "to_state": "HALT", "write": ".", "action": "RIGHT"}
+            {"read": "+", "to_state": "addone", "write": "1", "action": "RIGHT"}
         ],
         "addone": [
-            {"read": "1", "to_state": "skip", "write": "+", "action": "LEFT"},
-            {"read": "=", "to_state": "erase", "write": ".", "action": "LEFT"},
-            {"read": ".", "to_state": "scanright", "write": ".", "action": "RIGHT"}
+            {"read":"1", "to_state":"addone", "write":"1", "action":"RIGHT"},
+            {"read":"=", "to_state":"delone", "write":".", "action":"LEFT"}
         ],
-        "skip": [
-            {"read": "+", "to_state": "scanright", "write": "1", "action": "RIGHT"},
-            {"read": "=", "to_state": "erase", "write": ".", "action": "LEFT"}
-        ],
-        "erase": [
-            {"read": "+", "to_state": "HALT", "write": ".", "action": "RIGHT"}
+        "delone": [
+            {"read":"1", "to_state":"HALT", "write":".", "action":"RIGHT"}
         ]
     }
 }
-    
