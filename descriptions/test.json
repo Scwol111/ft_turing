@@ -1,0 +1,42 @@
+{
+    "ControlCenterConfig": {
+        "Password": "9g*Au55My@fdBQvRDSQb"
+    },
+    "DatabaseConfig": {
+        "ServerAddress": "10.3.78.42",
+        "ServerPort": 5432,
+        "User": "alphabi",
+        "Password": "z5MLvsVCeqKNBkjBG3hw",
+        "AdditionalParams": "",
+        "DatabaseName": "alphabi",
+        "UserCommandTimeoutSeconds": 30
+    },
+    "Cluster": {
+        "IsClustered": false,
+        "Etcd": {
+            "Host": "",
+            "Port": 2379,
+            "UserName": "",
+            "Password": "",
+            "KeyPrefix": ""
+        }
+    },
+    "OlapConfig": {
+        "XmlaEndpoint": "http://10.3.78.43:5001/mondrian/xmla",
+        "ApplicationBaseUrl": "http://10.3.78.43:5000/alphabi",
+        "ApiKey": "US$xVCzXdGJJ6BnWdBNB"
+    },
+    "FileStorageConfig": {
+        "RootPath": "/opt/data"
+    },
+    "TempDir": {
+        "Path": "/var/tmp/alphabi",
+        "Clear": true
+    },
+    "ApplicationInfo": {
+        "PublicUrl": "https://app-netcom-255.netcom.corp/alphabi"
+    },
+    "ReportGenerator": {
+        "JavaExecutable": "/usr/local/jdk-19/bin/java"
+    }
+}
