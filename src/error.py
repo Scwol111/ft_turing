@@ -1,5 +1,12 @@
-from sys import exit
+""" Module to exit with error
+"""
+import sys
 
 def error_exit(error:str):
+    """Show error message end exit with error code 1
+
+    Args:
+        error (str): error message
+    """
     print(f"ERROR: {error}")
-    exit(1)
+    sys.exit(1)

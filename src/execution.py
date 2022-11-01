@@ -1,5 +1,5 @@
 """
-execute turnig machine file
+Execute turnig machine file
 """
 from src.current_machine import CurrentMachine
 from src.machine import Machine

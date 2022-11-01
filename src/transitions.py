@@ -1,8 +1,10 @@
 """
 File to work with Transitions
 """
-from src.action import Action, create_action, show_action
-from src.error import error_exit
+from src.machine import Machine
+from src.action import create_action, show_action
+from src.utils import check_field
+from src.utils import check_in_list
 
 
 class Transition:
@@ -12,28 +14,9 @@ class Transition:
     read = str()
     to_state = str()
     write = str()
-    action = Action(3)
+    action = None
 
-def check_field(state:str, data:dict, types: type) -> bool:
-    """Function to check state and state type in data dictionary
-
-    Args:
-        state (str): string what need to check in data dictionary
-        data (dict): data dictionary
-        types (type): type of state in data must be equal types
-
-    Returns:
-        bool: True if all fine, or exit with error
-    """
-    try:
-        # data[state] #TODO check needs
-        if not type(data[state]) is types:
-            error_exit(f"{state} not is {types}")
-    except:
-        error_exit(f"not founded {state} in machine file")
-    return True
-
-def fill_transition(current:str, description: dict) -> Transition:
+def fill_transition(current:str, description: dict, machine: Machine) -> Transition:
     """_summary_
 
     Args:
@@ -42,14 +25,14 @@ def fill_transition(current:str, description: dict) -> Transition:
 
     Returns:
         Transition: _description_
-    """    
+    """
     out = Transition()
     out.current = current
-    if check_field("read", description, str):
+    if check_field("read", description, str) and check_in_list("read", description, machine.alphabet):
         out.read = description["read"]
-    if check_field("to_state", description, str):
+    if check_field("to_state", description, str) and check_in_list("to_state", description, machine.states):
         out.to_state = description["to_state"]
-    if check_field("write", description, str):
+    if check_field("write", description, str) and check_in_list("write", description, machine.alphabet):
         out.write = description["write"]
     if check_field("action", description, str):
         out.action = create_action(description["action"])

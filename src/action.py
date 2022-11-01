@@ -1,10 +1,9 @@
 """
 Enum and functions for turing machine action
 """
-from enum import Enum
 from src.error import error_exit
 
-class Action(Enum):
+class Action:
     """ Enum for turing machine action. Present action LEFT, RIGHT or STAY
     """
     LEFT = 1
@@ -22,11 +21,11 @@ def create_action(action: str) -> Action:
     """
     if action.upper() == "RIGHT":
         return Action.RIGHT
-    elif action.upper() == "LEFT":
+    if action.upper() == "LEFT":
         return Action.LEFT
-    elif action.upper() == "STAY":
+    if action.upper() == "STAY":
         return Action.STAY
-    error_exit("Unknown action")
+    return error_exit("Unknown action")
 
 def move_pointer(action: Action) -> int:
     """Detect what need todo with inputed action
@@ -39,11 +38,11 @@ def move_pointer(action: Action) -> int:
     """
     if action == Action.LEFT:
         return -1
-    elif action == Action.RIGHT:
+    if action == Action.RIGHT:
         return 1
-    elif action == Action.STAY:
+    if action == Action.STAY:
         return 0
-    error_exit("Unknown action")
+    return error_exit("Unknown action")
 
 def show_action(action: Action) -> str:
     """Show information about action
@@ -56,8 +55,8 @@ def show_action(action: Action) -> str:
     """
     if action == Action.LEFT:
         return "LEFT"
-    elif action == Action.RIGHT:
+    if action == Action.RIGHT:
         return "RIGHT"
-    elif action == Action.STAY:
+    if action == Action.STAY:
         return "STAY"
-    error_exit("Unknown action")
+    return error_exit("Unknown action")
