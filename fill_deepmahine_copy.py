@@ -7,7 +7,6 @@ import string
 from datetime import datetime
 from itertools import permutations
 
-
 def alphabet_reading(previous, next_s, read):
     global data
     if previous not in data["states"]:
@@ -36,17 +35,18 @@ def skip_one(state, char):
 
 def fill_alphabet():
     for l1 in ALPHABET:
-        alpha = l1
+        # alpha = l1
         alphabet_reading("init", f"al_read_{l1}", l1)
-        for l2 in ALPHABET:
-            if not l2 in alpha:
-                alpha = l1 + l2
-                alphabet_reading(f"al_read_{l1}", f"al_read_{alpha}", l2)
-                for l3 in ALPHABET:
-                    if not l3 in alpha:
-                        alpha = l1 + l2 + l3
-                        alphabet_reading(f"al_read_{l1}{l2}", f"st_read_{alpha}", l3)
-                        fill_states(alpha)
+        fill_states(l1)
+        # for l2 in ALPHABET:
+        #     if not l2 in alpha:
+        #         alpha = l1 + l2
+        #         alphabet_reading(f"al_read_{l1}", f"al_read_{alpha}", l2)
+        #         for l3 in ALPHABET:
+        #             if not l3 in alpha:
+        #                 alpha = l1 + l2 + l3
+        #                 alphabet_reading(f"al_read_{l1}{l2}", f"st_read_{alpha}", l3)
+        #                 fill_states(alpha)
 
 def fill_states(alpha):
     global data
@@ -56,13 +56,16 @@ def fill_states(alpha):
         small_alphabets = small_alphabets.replace(i, '')
     # for i in range(1, 6):
     for states in permutations(small_alphabets, STATES_LEN):
+        srt = "".join(sorted(states))
         for i in range(5):
-            srt = "".join(sorted(states[:i]))
-            alphabet_reading(f"st_read_{alpha}{('_' + srt[:-1]) if i > 0 else ''}", f"st_read_{alpha}_{srt}", "")
-            skip = {"read": ";", "to_state": f"init_read_{alpha}_{srt}", "write": ".", "action": "RIGHT"}
-            if i > 0 and skip not in data["transitions"][f"st_read_{alpha}_{srt[:-1]}"]:
-                data["transitions"][f"st_read_{alpha}_{srt[:-1]}"].append(skip)
-                fill_initial(alpha, srt)
+            # print("HHH", f"st_read_{alpha}_{srt[:i]}")
+            # print("TTT",('_' + srt[:i-1]) if i > 0 else '')
+            alphabet_reading(f"st_read_{alpha}{('_' + srt[:i]) if i > 0 else ''}", f"st_read_{alpha}_{srt[:i + 1]}", i)
+            skip = {"read": ";", "to_state": f"init_read_{alpha}_{srt[:i + 1]}", "write": ".", "action": "RIGHT"}
+            # print(data["states"])
+            if i > 0 and skip not in data["transitions"][f"st_read_{alpha}_{srt[:i]}"]:
+                data["transitions"][f"st_read_{alpha}_{srt[:i]}"].append(skip)
+                fill_initial(alpha, srt[:i])
 
 def fill_initial(alpha, states):
     for i in states:
@@ -75,7 +78,8 @@ def fill_transitions(alpha, states, init):
 
 start = datetime.now()
 
-ALPHABET = string.ascii_lowercase + string.digits + "+="
+# ALPHABET = string.ascii_lowercase + string.digits + "+="
+ALPHABET = string.ascii_letters[:5] + string.digits[:5]
 LETTER_LEN = 3
 STATES_LEN = 5
 TRANSITIONS_LEN = 20
@@ -83,7 +87,7 @@ ADD_ALPHA = ""
 
 data = {
     "name": "deeper_addition",
-    "alphabet": [".", ":", ";", "|", "/", "L", "R", "H"], # ,"+", "="
+    "alphabet": [".", ":", ";", "|", "/", "L", "R", "H", "+", "="],
     "blank": ".",
     "states": ["HALT"],
     "initial": "init",
