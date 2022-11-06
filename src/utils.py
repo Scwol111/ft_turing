@@ -16,7 +16,7 @@ def check_in_list(state: str, data: dict, listed:list) -> bool:
         bool: True if state in list else exit with error
     """
     if data[state] not in listed:
-        error_exit(f"{state} not in list")
+        error_exit(f"{state} [{data[state]}] not in list")
     return True
 
 def check_str_in_list(state: str, listed:list) -> bool:
@@ -61,7 +61,7 @@ def check_field(state:str, data:dict, types: type) -> bool:
     """
     try:
         if not isinstance(data[state], types):
-            error_exit(f"{state} not is {types}")
+            error_exit(f"{state} [{data[state]}] not is {types}")
     except KeyError:
         error_exit(f"not founded {state} in machine file")
     return True

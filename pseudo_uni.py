@@ -25,14 +25,10 @@ def gen():
         "[]"   # Rule block
         "<>"   # Direction
     )
-    blank = " "
-    ls = (
-        "CSPH"
-    )
+    blank = " " 
+    ls = ("ABCDEFCSPH")
     vblank = "."
-    li = (
-        "1+" + vblank + blank
-    )
+    li = ("012345+" + vblank + blank)
     l = lp + ls + li
 
     transitions = [
@@ -129,13 +125,16 @@ def gen():
         ) for state in ls for d in "<>" for input in li
     ]
     return dict(
-        name="pseudo_universal",
+        name="deeper_addition",
         alphabet=list(lp + ls + li),
         blank=blank,
         states=list(dict(transitions).keys()) + ["HALT"],
         initial="init",
         finals=["HALT"],
         transitions=dict(transitions),
+        start="C&C{[+S>.][.H>.][1C>1]}S{[1P<+][.H<.]}P{[.C>1]}*11111+111111111111111111"
+
+        # C&C{[+S>.][.H>.][2C>2]}S{[2P<+][.H<.]}P{[.C>2]}*22+2222
     )
 
 
@@ -150,6 +149,6 @@ def check(cfg):
 
 
 if __name__ == "__main__":
-    with open("tt.json", "w", encoding='utf-8') as file:
+    with open("./descriptions/deeper_addition_V3.json", "w", encoding='utf-8') as file:
         json.dump(check(gen()), file, indent=4)
     # print(json.dumps(check(gen()), indent=4))
