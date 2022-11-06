@@ -19,7 +19,7 @@ def create_action(action: str) -> Action:
     Returns:
         Action: Enum with turing machine action
     """
-    if action.upper() == "RIGHT":
+    if action.upper() == "RIGHT": #TODO remake
         return Action.RIGHT
     if action.upper() == "LEFT":
         return Action.LEFT
@@ -34,7 +34,7 @@ def move_pointer(action: Action) -> int:
         action (Action): one of LEFT, RIGHT or STAY
 
     Returns:
-        int: _description_
+        int: _description_ #TODO set
     """
     if action == Action.LEFT:
         return -1
