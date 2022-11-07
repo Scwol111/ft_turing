@@ -1,6 +1,7 @@
 """ Module with some usefull utils
 """
 
+import string
 from typing import Iterable, Type
 from src.error import error_exit
 
@@ -97,3 +98,19 @@ def ft_index(lst: Iterable[Type], find: Type) -> int:
             return count
         count += 1
     return -1
+
+def ft_upper(tape: str) -> str:
+    """Function to convert string to upper case
+
+    Args:
+        tape (str): inputed string
+
+    Returns:
+        str: upper case string
+    """
+    out = ""
+    for i in tape:
+        if i in string.ascii_lowercase:
+            i = string.ascii_uppercase[ft_index(string.ascii_lowercase, i)]
+        out = out + i
+    return out

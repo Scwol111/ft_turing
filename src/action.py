@@ -2,6 +2,7 @@
 Enum and functions for turing machine action
 """
 from src.error import error_exit
+from src.utils import ft_upper
 
 class Action:
     """ Enum for turing machine action. Present action LEFT, RIGHT or STAY
@@ -19,11 +20,14 @@ def create_action(action: str) -> Action:
     Returns:
         Action: Enum with turing machine action
     """
-    if action.upper() == "RIGHT": #TODO remake
+    # if action.upper() == "RIGHT": #TODO remake
+    if ft_upper(action) == "RIGHT":
         return Action.RIGHT
-    if action.upper() == "LEFT":
+    # if action.upper() == "LEFT":
+    if ft_upper(action) == "LEFT":
         return Action.LEFT
-    if action.upper() == "STAY":
+    # if action.upper() == "STAY":
+    if ft_upper(action) == "STAY":
         return Action.STAY
     return error_exit("Unknown action")
 
@@ -34,7 +38,7 @@ def move_pointer(action: Action) -> int:
         action (Action): one of LEFT, RIGHT or STAY
 
     Returns:
-        int: _description_ #TODO set
+        int: way to move tape pointer
     """
     if action == Action.LEFT:
         return -1
